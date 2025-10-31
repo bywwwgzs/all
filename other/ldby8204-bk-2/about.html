@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于 | bywwwgzs | 个人博客</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="../../zy/webside/st/tailwind.css"></script>
+    <!-- 引入Font Awesome -->
+    <link href="../../zy/webside/nd/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 引入Google字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gray-50 text-dark antialiased">
+    <!-- 导航栏 -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-sm shadow-sm z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <!-- 博客logo -->
+                <a href="index.html" class="flex items-center space-x-2">
+                    <span class="text-primary text-2xl"><i class="fa fa-feather"></i></span>
+                    <span class="font-bold text-xl">bywwwgzs</span>
+                </a>
+                
+                <!-- 桌面导航菜单 -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="font-medium hover:text-primary transition-colors">首页</a>
+                    <a href="article.html" class="font-medium hover:text-primary transition-colors">文章</a>
+                    <a href="about.html" class="font-medium text-primary transition-colors">关于</a>
+                </nav>
+                
+                <!-- 移动菜单按钮 -->
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <i class="fa fa-bars text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-3 space-y-3">
+                <a href="index.html" class="block py-2 font-medium hover:text-primary transition-colors">首页</a>
+                <a href="article.html" class="block py-2 font-medium hover:text-primary transition-colors">文章</a>
+                <a href="about.html" class="block py-2 font-medium text-primary transition-colors">关于</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-24 pb-16">
+        <!-- 关于页面内容 -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-12 text-center">关于我与这个博客</h1>
+                    
+                    <div class="flex flex-col md:flex-row items-center mb-12">
+                        <img src="../../zy/photo/picsum/id_1012_200_200.jpg" alt="博主照片" class="w-32 h-32 rounded-full object-cover mb-6 md:mb-0 md:mr-8">
+                        
+                        <div class="text-center md:text-left">
+                            <h2 class="text-2xl font-bold mb-3">吕洞宾吖8204</h2>
+                            <p class="text-gray-600 mb-4">开发者 ｜ 白云万维网工作室室长</p>
+                            
+                            <div class="flex justify-center md:justify-start space-x-4 mt-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="prose prose-lg max-w-none">
+                        <h2 class="text-2xl font-bold mb-4">关于我</h2>
+                        <p class="leading-relaxed mb-6">
+                            我是一名开发者，热衷于探索新技术和分享知识。作为白云万维网工作室的室长，我带领团队完成了多个 web 开发项目，积累了丰富的实战经验。
+                        </p>
+                        <p class="leading-relaxed mb-6">
+                            我的技术栈主要集中在 Web 开发领域，包括前端的 HTML、CSS、JavaScript 以及相关框架，后端的 Node.js、Python 等。我始终保持学习的热情，不断拓展自己的技术边界。
+                        </p>
+                        
+                        <h2 class="text-2xl font-bold mt-10 mb-4">关于这个博客</h2>
+                        <p class="leading-relaxed mb-6">
+                            本博客创建于 2025 年，旨在记录我的学习历程和技术思考。我希望通过分享自己的知识和经验，能够帮助到那些刚刚踏入编程世界的初学者。
+                        </p>
+                        <p class="leading-relaxed mb-6">
+                            目前博客虽然只有一篇"Hello World"文章，但这是一个开始，未来我会持续分享更多有价值的内容，包括编程技巧、项目经验和行业见解。
+                        </p>
+                        
+                        <h2 class="text-2xl font-bold mt-10 mb-4">联系我</h2>
+                        <p class="leading-relaxed mb-6">
+                            如果你有任何问题、建议或者合作意向，欢迎通过以下方式联系我：
+                        </p>
+                        <p class="leading-relaxed mb-2">
+                            <i class="fa fa-envelope-o text-primary mr-2"></i>
+                            <a href="mailto:15068768204@139.com" class="text-primary hover:underline">15068768204@139.com</a>
+                        </p>
+                    </div>
+                    
+                    <!-- 返回首页 -->
+                    <div class="text-center mt-12">
+                        <a href="index.html" class="inline-flex items-center text-primary hover:text-primary/80 font-medium transition-colors">
+                            <i class="fa fa-arrow-left mr-2"></i> 返回首页
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span class="text-primary text-2xl"><i class="fa fa-feather"></i></span>
+                        <span class="font-bold text-xl">bywwwgzs</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">本网站由白云万维网工作室设计</p>
+                </div>
+                <p class="text-gray-500 text-sm">
+                    &copy; 2025 bywwwgzs 博客. 保留所有权利.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // 移动菜单切换
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
