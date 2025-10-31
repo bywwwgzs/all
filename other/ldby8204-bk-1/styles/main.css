@@ -1,0 +1,124 @@
+/* ===== 核心重置 ===== */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: rgba(0, 0, 0, 0.86);
+    background: #fff;
+    text-align: center;          /* 全局文字居中 */
+}
+
+a {
+    color: rgba(0, 0, 0, 0.98);
+    text-decoration: none;
+    transition: color .3s;
+}
+a:hover { color: #006CFF; }
+
+.watermark {
+    padding: 10px;
+    background: #f0f0f0;
+    font-weight: bold;
+    color: #888;
+    border-bottom: 1px solid #ddd;
+}
+
+.main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.site-header {
+    text-align: center;
+    padding: 48px 0;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 24px;
+}
+
+.site-title { font-size: 32px; font-weight: bold; margin-bottom: 8px; }
+.site-description { font-size: 16px; color: #495057; margin-bottom: 24px; }
+
+.menu-container {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+.menu { font-weight: 600; padding: 8px 16px; }
+
+/* ===== 文章列表 ===== */
+.post-list { margin-top: 32px; }
+
+.post {
+    margin-bottom: 64px;          /* 加大空隙 */
+    padding-bottom: 0;            /* 去掉底边分割线 */
+    border-bottom: none;          /* 去掉底边 border */
+    text-align: center;
+}
+
+.post-title { font-size: 24px; font-weight: bold; margin-bottom: 8px; }
+.post-info { font-size: 14px; color: #868e96; }
+
+/* ===== 文章详情 ===== */
+.post-detail { padding: 24px 0; }
+.post-content {
+    font-family: "Droid Serif", serif;
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.service-package {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px auto;
+    background: #f9f9f9;
+    text-align: center;
+}
+.price { font-size: 24px; color: #e74c3c; font-weight: bold; margin: 10px 0; }
+.package-features { list-style: none; padding: 0; text-align: center; }
+
+/* ===== 归档页面：每条记录之间明显更空 ===== */
+.archive-year {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 48px 0 64px;   /* 年份标题上下留空 */
+}
+
+.archive-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    text-align: center;    /* 整体居中 */
+}
+
+.archive-item {
+    display: flex;
+    justify-content: center;   /* 内容水平居中 */
+    padding: 48px 0;           /* 每条记录上下留 24px，明显更空 */
+    border-bottom: none;       /* 坚决不要分割线 */
+}
+
+.archive-date {
+    font-size: 14px;
+    color: #868e96;
+    margin-left: 12px;
+}
+
+/* ===== 标签 ===== */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+.tag { background: #f1f1f1; padding: 6px 12px; border-radius: 20px; font-size: 14px; }
+
+/* ===== 页脚 ===== */
+.site-footer { text-align: center; font-size: 12px; color: #868e96; padding: 40px 0; }
