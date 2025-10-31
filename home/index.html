@@ -1,0 +1,413 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>网站导航中心 © 白云万维网工作室承建</title>
+    <script src="../zy/webside/st/tailwind.css"></script>
+    <link href="../zy/webside/nd/css/font-awesome.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#121212',
+                        light: '#1E1E1E',
+                        text: '#E0E0E0'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .btn-hover {
+                @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+            }
+            .card-shadow {
+                @apply shadow-md hover:shadow-xl transition-shadow duration-300;
+            }
+            .link-card {
+                @apply opacity-0 transform translate-y-4 transition-all duration-500;
+            }
+            .link-card.visible {
+                @apply opacity-100 transform translate-y-0;
+            }
+            .typing-cursor {
+                @apply border-r-2 border-primary animate-pulse inline-block h-6 w-1;
+            }
+            .title-nowrap {
+                @apply whitespace-nowrap overflow-hidden text-ellipsis;
+            }
+            .hide-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .hide-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            /* 弹窗样式 - 提高z-index确保置顶 */
+            .modal-backdrop {
+                @apply fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-[9999] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300;
+            }
+            .modal-backdrop.active {
+                @apply opacity-100 pointer-events-auto;
+            }
+            .modal-content {
+                @apply bg-light rounded-xl p-6 max-w-md w-full mx-4 transform scale-95 transition-transform duration-300;
+            }
+            .modal-backdrop.active .modal-content {
+                @apply transform scale-100;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-dark to-gray-900 min-h-screen font-sans text-text">
+    <!-- 贡献者弹窗 -->
+    <div id="contributors-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="flex justify-between items-start mb-4">
+                <h2 class="text-xl font-bold text-primary flex items-center">
+                    <i class="fa fa-users mr-2"></i>贡献者信息
+                </h2>
+                <button id="close-modal" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fa fa-times text-lg"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4 mb-6">
+                <div class="flex items-center p-3 bg-dark rounded-lg">
+                    <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fa fa-user text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium">lcz</p>
+                        <p class="text-sm text-gray-400">贡献次数: 2次</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-3 bg-dark rounded-lg">
+                    <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fa fa-user text-secondary text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium">ldby8204</p>
+                        <p class="text-sm text-gray-400">贡献次数: 6次</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button id="confirm-modal" class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-all btn-hover">
+                    知道了
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 头部导航 -->
+    <header class="bg-dark bg-opacity-80 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col items-start">
+                <div class="flex items-center mb-3 w-full overflow-hidden">
+                    <i class="fa fa-compass text-primary text-2xl sm:text-3xl mr-2 flex-shrink-0"></i>
+                    <h1 id="main-title" class="text-[clamp(1rem,5vw,1.5rem)] font-bold flex-1 title-nowrap"></h1>
+                    <span class="typing-cursor ml-1 flex-shrink-0"></span>
+                </div>
+                
+                <!-- 跳转按钮 -->
+                <div class="mb-3 w-full">
+                    <a href="announcements.html" class="inline-flex items-center bg-secondary hover:bg-secondary/90 text-white px-4 py-1.5 rounded-lg text-sm btn-hover">
+                        <i class="fa fa-bullhorn mr-1"></i> 查看系统公告
+                    </a>
+                </div>
+                
+                <div class="mb-3 w-full overflow-x-auto pb-1 hide-scrollbar">
+                    <div class="flex items-center min-w-max">
+                        <p id="ancient-text" class="text-[clamp(0.8rem,3vw,1rem)] text-gray-300 whitespace-nowrap"></p>
+                        <span class="typing-cursor ml-1"></span>
+                    </div>
+                </div>
+                
+                <div id="time-info" class="text-xs sm:text-sm text-gray-400 grid grid-cols-1 sm:grid-cols-3 gap-1 w-full">
+                    <div class="truncate">当前时间: <span id="current-time">2025年9月18日18时44分11秒</span></div>
+                    <div class="truncate">上次修改: <span id="last-modified">2025年10月10日</span></div>
+                    <div class="truncate">运行时间: <span id="uptime"></span></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- 链接网格 -->
+        <div id="links-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-gray-400 py-4 mt-8">
+        <div class="container mx-auto px-4 text-center text-xs sm:text-sm">
+            <p>网站导航中心 © 白云万维网工作室承建 </p>
+            <p class="mt-1">点击链接将跳转到相应网站</p>
+        </div>
+    </footer>
+
+    <script>
+        const CONFIG = {
+            TYPE_SPEED: 100,
+            DELETE_SPEED: 50,
+            TEXT_DELAY: 5000,
+            MAIN_TITLE: "网站导航中心 © 白云万维网工作室承建",
+            LAUNCH_DATE: new Date(2025, 8, 12)
+        };
+
+        const AppData = {
+            ancientTexts: [
+                "天行健，君子以自强不息。地势坤，君子以厚德载物。",
+                "三人行，必有我师焉。择其善者而从之，其不善者而改之。",
+                "学而时习之，不亦说乎？有朋自远方来，不亦乐乎？",
+                "温故而知新，可以为师矣。",
+                "学而不思则罔，思而不学则殆。",
+                "知之为知之，不知为不知，是知也。",
+                "敏而好学，不耻下问。",
+                "己所不欲，勿施于人。",
+                "穷则独善其身，达则兼济天下。",
+                "先天下之忧而忧，后天下之乐而乐。"
+            ],
+            
+            linkData: [
+                { name: "ldby8204的博客1", url: "../other/ldby8204-bk-1/index.html", category: ["ldby8204"] },
+                { name: "ldby8204的博客2", url: "../other/ldby8204-bk-2/index.html", category: ["ldby8204"] },
+                { name: "lcz-异常，详见公告", url: "./shutdown.html", category: ["lcz"] },
+                { name: "白云工作室", url: "../other/bygzs/index.html", category: ["白云工作室","ldby8204"] },
+                { name: "YO工作室", url: "../other/yogzs/index.html", category: ["YO工作室","ldby8204"] },
+                { name: "白云万维网工作室", url: "../other/bywwwgzs/index.html", category: ["白云万维网工作室","ldby8204"] },
+                { name: "留言板-因致命异常已关闭", url: "./down.html", category: ["白云万维网工作室","ldby8204"] },
+                { name: "在线png转ico工具", url: "../other/pngtoico/convert_to_ico.html", category: ["白云万维网工作室","lcx"] }
+            ]
+        };
+
+        const Utils = {
+            formatTimeToChinese(date) {
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const hour = date.getHours();
+                const minute = date.getMinutes();
+                const second = date.getSeconds();
+                
+                const padNumber = (num) => num.toString().padStart(2, '0');
+                
+                return `${year}年${month}月${day}日${padNumber(hour)}时${padNumber(minute)}分${padNumber(second)}秒`;
+            },
+            
+            getRandomAncientText(lastIndex = -1) {
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * AppData.ancientTexts.length);
+                } while (randomIndex === lastIndex && AppData.ancientTexts.length > 1);
+                
+                return {
+                    text: AppData.ancientTexts[randomIndex],
+                    index: randomIndex
+                };
+            },
+            
+            calculateUptime() {
+                const now = new Date();
+                const diffMs = now - CONFIG.LAUNCH_DATE;
+                
+                const totalSeconds = Math.floor(diffMs / 1000);
+                const days = Math.floor(totalSeconds / (60 * 60 * 24));
+                const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+                const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+                const seconds = totalSeconds % 60;
+                
+                return `${days}天${hours}时${minutes}分${seconds}秒`;
+            },
+            
+            getLinkIcon(category) {
+                if (category.includes('面板')) return 'fa-sliders';
+                if (category.includes('引导')) return 'fa-map-signs';
+                if (category.includes('ldby8204')) return 'fa-home';
+                if (category.includes('lcz')) return 'fa-user-circle';
+                if (category.includes('上传文件')) return 'fa-cloud-upload';
+                if (category.includes('聊天')) return 'fa-comments-o';
+                if (category.includes('工作室')) return 'fa-building-o';
+                return 'fa-link';
+            }
+        };
+
+        const Animations = {
+            typeText(elementId, text, speed, callback) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let index = 0;
+                element.textContent = '';
+                
+                function type() {
+                    if (index < text.length) {
+                        element.textContent += text.charAt(index);
+                        index++;
+                        setTimeout(type, speed);
+                    } else if (callback) {
+                        callback();
+                    }
+                }
+                
+                type();
+            },
+            
+            deleteText(elementId, speed, callback) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let text = element.textContent;
+                
+                function deleteChar() {
+                    if (text.length > 0) {
+                        text = text.substring(0, text.length - 1);
+                        element.textContent = text;
+                        setTimeout(deleteChar, speed);
+                    } else if (callback) {
+                        callback();
+                    }
+                }
+                
+                deleteChar();
+            },
+            
+            cycleAncientTexts() {
+                let lastIndex = -1;
+                
+                function showNextText() {
+                    const { text, index } = Utils.getRandomAncientText(lastIndex);
+                    lastIndex = index;
+                    
+                    Animations.typeText('ancient-text', text, CONFIG.TYPE_SPEED, () => {
+                        setTimeout(() => {
+                            Animations.deleteText('ancient-text', CONFIG.DELETE_SPEED, showNextText);
+                        }, CONFIG.TEXT_DELAY);
+                    });
+                }
+                
+                showNextText();
+            },
+            
+            initLinkCardsAnimation() {
+                const cards = document.querySelectorAll('.link-card');
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, 100 * index);
+                });
+            }
+        };
+
+        const Render = {
+            renderLinkCards() {
+                const linksGrid = document.getElementById('links-grid');
+                if (!linksGrid) return;
+                
+                linksGrid.innerHTML = '';
+                
+                AppData.linkData.forEach(link => {
+                    const iconClass = Utils.getLinkIcon(link.category);
+                    
+                    const card = document.createElement('a');
+                    card.href = link.url;
+                    card.target = '_blank';
+                    card.className = `link-card card-shadow bg-light rounded-lg p-3 flex flex-col items-center text-center hover:bg-gray-800 transition-colors`;
+                    
+                    card.innerHTML = `
+                        <i class="fa ${iconClass} text-primary text-lg sm:text-xl mb-2"></i>
+                        <h3 class="font-medium text-xs sm:text-sm break-words max-w-full">${link.name}</h3>
+                    `;
+                    
+                    linksGrid.appendChild(card);
+                });
+                
+                Animations.initLinkCardsAnimation();
+            },
+            
+            updateTimeDisplay() {
+                const timeElement = document.getElementById('current-time');
+                if (!timeElement) return;
+                
+                timeElement.textContent = Utils.formatTimeToChinese(new Date());
+                setTimeout(Render.updateTimeDisplay, 1000);
+            },
+            
+            updateUptimeDisplay() {
+                const uptimeElement = document.getElementById('uptime');
+                if (!uptimeElement) return;
+                
+                uptimeElement.textContent = Utils.calculateUptime();
+                setTimeout(Render.updateUptimeDisplay, 1000);
+            }
+        };
+
+        // 滚动时改变导航栏样式
+        function handleScroll() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.add('py-4');
+                header.classList.remove('py-2');
+            }
+        }
+
+        function initApp() {
+            Animations.typeText('main-title', CONFIG.MAIN_TITLE, CONFIG.TYPE_SPEED, () => {
+                Animations.cycleAncientTexts();
+            });
+            Render.renderLinkCards();
+            Render.updateTimeDisplay();
+            Render.updateUptimeDisplay();
+            window.addEventListener('scroll', handleScroll);
+            
+            // 弹窗初始化代码
+            const modal = document.getElementById('contributors-modal');
+            const closeBtn = document.getElementById('close-modal');
+            const confirmBtn = document.getElementById('confirm-modal');
+            
+            // 显示弹窗
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 500);
+            
+            // 关闭弹窗
+            function closeModal() {
+                modal.classList.remove('active');
+            }
+            
+            closeBtn.addEventListener('click', closeModal);
+            confirmBtn.addEventListener('click', closeModal);
+            
+            // 点击弹窗外部关闭
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
+    

@@ -1,0 +1,510 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>系统公告 © 白云万维网工作室承建</title>
+    <script src="../zy/webside/st/tailwind.css"></script>
+    <link href="../zy/webside/nd/css/font-awesome.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#121212',
+                        light: '#1E1E1E',
+                        text: '#E0E0E0'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .btn-hover {
+                @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+            }
+            .card-shadow {
+                @apply shadow-md hover:shadow-xl transition-shadow duration-300;
+            }
+            .typing-cursor {
+                @apply border-r-2 border-primary animate-pulse inline-block h-6 w-1;
+            }
+            .title-nowrap {
+                @apply whitespace-nowrap overflow-hidden text-ellipsis;
+            }
+            .announcement-item {
+                @apply mb-6 last:mb-0 pb-6 last:pb-0 border-b border-gray-700 last:border-0;
+            }
+            .announcement-item:hover {
+                @apply bg-gray-800/50 rounded-lg p-4 -m-4 transition-colors duration-300;
+            }
+            .hide-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .hide-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .fade-in {
+                @apply opacity-0 animate-[fadeIn_0.5s_ease-in-out_forwards];
+            }
+            .pulse-update {
+                animation: pulseUpdate 1s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes pulseUpdate {
+                0% { background-color: rgba(59, 130, 246, 0.1); }
+                50% { background-color: rgba(59, 130, 246, 0.3); }
+                100% { background-color: rgba(59, 130, 246, 0); }
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-dark to-gray-900 min-h-screen font-sans text-text">
+    <!-- 头部导航 -->
+    <header class="bg-dark bg-opacity-80 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col items-start">
+                <div class="flex items-center mb-3 w-full overflow-hidden">
+                    <i class="fa fa-bullhorn text-primary text-2xl sm:text-3xl mr-2 flex-shrink-0"></i>
+                    <h1 id="main-title" class="text-[clamp(1rem,5vw,1.5rem)] font-bold flex-1 title-nowrap"></h1>
+                    <span class="typing-cursor ml-1 flex-shrink-0"></span>
+                </div>
+                
+                <!-- 跳转按钮 -->
+                <div class="mb-3 w-full">
+                    <a href="index.html" class="inline-flex items-center bg-secondary hover:bg-secondary/90 text-white px-4 py-1.5 rounded-lg text-sm btn-hover">
+                        <i class="fa fa-compass mr-1"></i> 前往网站导航中心
+                    </a>
+                </div>
+                
+                <div class="mb-3 w-full overflow-x-auto pb-1 hide-scrollbar">
+                    <div class="flex items-center min-w-max">
+                        <p id="ancient-text" class="text-[clamp(0.8rem,3vw,1rem)] text-gray-300 whitespace-nowrap"></p>
+                        <span class="typing-cursor ml-1"></span>
+                    </div>
+                </div>
+                
+                <div id="time-info" class="text-xs sm:text-sm text-gray-400 grid grid-cols-1 sm:grid-cols-3 gap-1 w-full">
+                    <div class="truncate">当前时间: <span id="current-time">2025年9月24日10时00分00秒</span></div>
+                    <div class="truncate">上次修改: <span id="last-announcement">2025年9月24日</span></div>
+                    <div class="truncate">公告总数: <span id="announcement-count">7</span></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-6">        
+        <!-- 公告列表 -->
+        <div class="bg-light rounded-xl p-4 sm:p-6 card-shadow">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-white flex items-center">
+                    <i class="fa fa-list-alt text-primary mr-2"></i> 系统公告列表
+                </h2>
+            </div>
+            
+            <div id="announcements-container" class="space-y-1">
+                <!-- 公告内容将通过JavaScript动态生成 -->
+            </div>
+            
+            <!-- 空状态提示 -->
+            <div id="empty-state" class="hidden py-12 text-center">
+                <i class="fa fa-folder-open-o text-5xl text-gray-600 mb-3"></i>
+                <p class="text-gray-400">没有找到匹配的公告</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-gray-400 py-4 mt-12">
+        <div class="container mx-auto px-4 text-center text-xs sm:text-sm">
+            <p>系统公告 © 白云万维网工作室承建 </p>
+            <p class="mt-1">公告内容仅供参考，具体以实际情况为准</p>
+        </div>
+    </footer>
+
+    <script>
+        const CONFIG = {
+            TYPE_SPEED: 100,
+            DELETE_SPEED: 50,
+            TEXT_DELAY: 5000,
+            MAIN_TITLE: "系统公告 © 白云万维网工作室承建",
+            LAUNCH_DATE: new Date(2025, 8, 12),
+            AUTO_REFRESH_INTERVAL: 60000, // 保持60秒自动刷新但不显示提示
+            UPDATE_CHECK_INTERVAL: 5000
+        };
+
+        let announcements = [
+            {
+                Id:20,
+                content: "随着一声重重的回车落下，终端执行完了最后一条代码，白云万维网工作室承建的8个网站已可脱机使用（防崩溃系统），能在断网情况下基本正常运行。",
+                date: "2025年10月13日18时02分"
+            },
+            {
+                id:19,
+                content: "除白云工作室和ldby8204的博客2以外，其他网站的防崩溃系统安装完毕。",
+                date: "2025年10月12日17时51分"
+            },
+            {
+                id:18,
+                content: "很抱歉，我们的网站防崩溃系统安装失败，已导致部分网站显示异常，我们将还原备份。",
+                date: "2025年10月12日16时13分"
+            },
+            {
+                id:17,
+                content: "我们正在尝试进行网站防崩溃系统安装。",
+                date: "2025年10月11日16时24分"
+            },
+            {
+                id:16,
+                content: "YO工作室网站已被YO工作室室长同意建设，重新开放。",
+                date: "2025年10月11日16时24分"
+            },
+            {
+                id:15,
+                content: "png转ico工具已经白云万维网工作室安全中心审查，通过审核，正式上线。",
+                date: "2025年10月11日16时24分"
+            },
+            {
+                id:14,
+                content: "YO工作室和lcz两个网站因为版权问题，已关停，等待处理……",
+                date: "2025年10月10日17时12分"
+            },
+            {
+                id:13,
+                content: "本工作室已注销其他域名，只剩本域名（https://bywwwgzs.rf.gd/）。",
+                date: "2025年10月08日13时07分"
+            },
+            {
+                id:12,
+                content: "本工作室已在gitee上停更。",
+                date: "2025年10月08日13时07分"
+            },
+            {
+                id:11,
+                content: "本网站及附属网站已全部在gitee开源，地址：https://gitee.com/bywwwwgzs。但是由于上传限制，开源内容可能更新不及时。",
+                date: "2025年9月30日15时08分"
+            },
+            {
+                id: 10,
+                content: "所有网站编写完成。",
+                date: "2025年9月30日15时08分"
+            },
+            {
+                id: 9,
+                content: "本网站停止使用服务器。",
+                date: "2025年9月30日15时08分"
+            },
+            {
+                id: 8,
+                content: "公告显示已与链接显示分离。",
+                date: "2025年9月24日17时39分"
+            },
+            {
+                id: 7,
+                content: "加密版引导界面已放弃制作，链接保留。",
+                date: "2025年9月22日17时37分"
+            },
+            {
+                id: 6,
+                content: "加密版引导界面正在调试中，链接已上线，欢迎体验。",
+                date: "2025年9月22日17时24分"
+            },
+            {
+                id: 5,
+                content: "网站渲染失败给您带来的不便，我们深表歉意，已修复此问题。",
+                date: "2025年9月21日20时17分"
+            },
+            {
+                id: 4,
+                content: "白云万维网工作室官网上线，欢迎查看。",
+                date: "2025年9月21日14时28分"
+            },
+            {
+                id: 3,
+                content: "网站链接设置错误，对你带来了不便，敬请谅解。",
+                date: "2025年9月20日17时20分"
+            },
+            {
+                id: 2,
+                content: "服务器已开启快照备份。",
+                date: "2025年9月20日17时20分"
+            },
+            {
+                id: 1,
+                content: "已完成服务器重置操作，期间可能对您的使用造成短暂影响，给您带来不便，敬请谅解！",
+                date: "2025年9月19日16时45分"
+            }
+        ];
+
+        let announcementsHash = generateAnnouncementsHash(announcements);
+
+        const AppData = {
+            ancientTexts: [
+                "工欲善其事，必先利其器。",
+                "凡事预则立，不预则废。",
+                "言必信，行必果。",
+                "海纳百川，有容乃大。",
+                "锲而不舍，金石可镂。",
+                "路遥知马力，日久见人心。",
+                "千里之行，始于足下。",
+                "天下兴亡，匹夫有责。",
+                "知己知彼，百战不殆。",
+                "当局者迷，旁观者清。"
+            ]
+        };
+
+        const Utils = {
+            formatTimeToChinese(date) {
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const hour = date.getHours();
+                const minute = date.getMinutes();
+                const second = date.getSeconds();
+                
+                const padNumber = (num) => num.toString().padStart(2, '0');
+                
+                return `${year}年${month}月${day}日${padNumber(hour)}时${padNumber(minute)}分${padNumber(second)}秒`;
+            },
+            
+            getRandomAncientText(lastIndex = -1) {
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * AppData.ancientTexts.length);
+                } while (randomIndex === lastIndex && AppData.ancientTexts.length > 1);
+                
+                return {
+                    text: AppData.ancientTexts[randomIndex],
+                    index: randomIndex
+                };
+            }
+        };
+
+        function generateAnnouncementsHash(anns) {
+            return JSON.stringify(anns.map(a => a.id));
+        }
+
+        async function fetchLatestAnnouncements() {
+            return [...announcements];
+        }
+
+        const Announcements = {
+            init() {
+                this.renderAllAnnouncements();
+                this.updateCounters();
+                this.setupAutoRefresh();
+            },
+            
+            renderAllAnnouncements(isAutoUpdate = false) {
+                const container = document.getElementById('announcements-container');
+                const emptyState = document.getElementById('empty-state');
+                if (!container || !emptyState) return;
+                
+                const sorted = [...announcements].sort((a, b) => b.id - a.id);
+                
+                container.innerHTML = '';
+                
+                if (sorted.length === 0) {
+                    emptyState.classList.remove('hidden');
+                    return;
+                }
+                
+                emptyState.classList.add('hidden');
+                
+                sorted.forEach((announcement, index) => {
+                    const item = document.createElement('div');
+                    item.className = `announcement-item fade-in ${isAutoUpdate && index === 0 ? 'pulse-update' : ''}`;
+                    item.style.animationDelay = `${index * 0.1}s`;
+                    
+                    item.innerHTML = `
+                        <div class="flex flex-wrap justify-between items-start mb-2">
+                            <div class="flex items-center">
+                                <span class="text-primary font-medium mr-2">${announcement.date}</span>
+                            </div>
+                            <span class="text-gray-500 text-sm mt-1 sm:mt-0">公告 #${announcement.id}</span>
+                        </div>
+                        <p class="text-sm sm:text-base">${announcement.content}</p>
+                    `;
+                    container.appendChild(item);
+                });
+                
+                if (isAutoUpdate && sorted.length > 0 && sorted[0].id > announcementsHash.split(',').length) {
+                    this.showNotification('发现新公告，已自动更新');
+                }
+            },
+            
+            showNotification(message) {
+                let notification = document.getElementById('notification');
+                if (notification) {
+                    notification.remove();
+                }
+                
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.className = 'fixed bottom-4 right-4 bg-primary text-white px-4 py-2 rounded-lg shadow-lg z-50 transform translate-y-10 opacity-0 transition-all duration-300';
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.classList.remove('translate-y-10', 'opacity-0');
+                }, 100);
+                
+                setTimeout(() => {
+                    notification.classList.add('translate-y-10', 'opacity-0');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            },
+            
+            updateCounters() {
+                const countElement = document.getElementById('announcement-count');
+                const lastElement = document.getElementById('last-announcement');
+                
+                if (countElement) {
+                    const oldCount = parseInt(countElement.textContent);
+                    const newCount = announcements.length;
+                    
+                    if (oldCount !== newCount) {
+                        countElement.classList.add('pulse-update');
+                        countElement.textContent = newCount;
+                        setTimeout(() => {
+                            countElement.classList.remove('pulse-update');
+                        }, 1000);
+                    } else {
+                        countElement.textContent = newCount;
+                    }
+                }
+                
+                if (lastElement && announcements.length > 0) {
+                    const latest = [...announcements].sort((a, b) => b.id - a.id)[0];
+                    lastElement.textContent = latest.date.split(' ')[0];
+                }
+            },
+            
+            setupAutoRefresh() {
+                // 保持60秒自动刷新功能但不在界面显示提示
+                setInterval(async () => {
+                    const latestAnnouncements = await fetchLatestAnnouncements();
+                    const oldHash = announcementsHash;
+                    announcements = latestAnnouncements;
+                    announcementsHash = generateAnnouncementsHash(announcements);
+                    
+                    if (oldHash !== announcementsHash) {
+                        this.renderAllAnnouncements(true);
+                        this.updateCounters();
+                    }
+                }, CONFIG.AUTO_REFRESH_INTERVAL);
+            }
+        };
+
+        const Animations = {
+            typeText(elementId, text, speed, callback) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let index = 0;
+                element.textContent = '';
+                
+                function type() {
+                    if (index < text.length) {
+                        element.textContent += text.charAt(index);
+                        index++;
+                        setTimeout(type, speed);
+                    } else if (callback) {
+                        callback();
+                    }
+                }
+                
+                type();
+            },
+            
+            deleteText(elementId, speed, callback) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let text = element.textContent;
+                
+                function deleteChar() {
+                    if (text.length > 0) {
+                        text = text.substring(0, text.length - 1);
+                        element.textContent = text;
+                        setTimeout(deleteChar, speed);
+                    } else if (callback) {
+                        callback();
+                    }
+                }
+                
+                deleteChar();
+            },
+            
+            cycleAncientTexts() {
+                let lastIndex = -1;
+                
+                function showNextText() {
+                    const { text, index } = Utils.getRandomAncientText(lastIndex);
+                    lastIndex = index;
+                    
+                    Animations.typeText('ancient-text', text, CONFIG.TYPE_SPEED, () => {
+                        setTimeout(() => {
+                            Animations.deleteText('ancient-text', CONFIG.DELETE_SPEED, showNextText);
+                        }, CONFIG.TEXT_DELAY);
+                    });
+                }
+                
+                showNextText();
+            }
+        };
+
+        const Render = {
+            updateTimeDisplay() {
+                const timeElement = document.getElementById('current-time');
+                if (!timeElement) return;
+                
+                timeElement.textContent = Utils.formatTimeToChinese(new Date());
+                setTimeout(Render.updateTimeDisplay, 1000);
+            }
+        };
+
+        // 滚动时改变导航栏样式
+        function handleScroll() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.add('py-4');
+                header.classList.remove('py-2');
+            }
+        }
+
+        function initApp() {
+            Announcements.init();
+            Animations.typeText('main-title', CONFIG.MAIN_TITLE, CONFIG.TYPE_SPEED, () => {
+                Animations.cycleAncientTexts();
+            });
+            Render.updateTimeDisplay();
+            window.addEventListener('scroll', handleScroll);
+        }
+
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

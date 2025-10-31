@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站关停通知</title>
+    <script src="../zy/webside/st/tailwind.css"></script>
+    <link href="../zy/webside/nd/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .bg-gradient {
+                background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            }
+            .pulse-animation {
+                animation: pulse 2s infinite;
+            }
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient flex flex-col items-center justify-center p-4">
+    <div class="text-center max-w-md w-full bg-white rounded-xl shadow-lg p-8 transform transition-all duration-300 hover:shadow-xl">
+        <div class="mb-6 text-red-500 text-5xl pulse-animation">
+            <i class="fa fa-exclamation-circle"></i>
+        </div>
+        
+        <h1 class="text-[clamp(1.5rem,5vw,2.5rem)] font-bold text-gray-800 mb-4 text-shadow">
+            本网站已因系统维护关停
+        </h1>
+        
+        <p class="text-gray-600 mb-6 text-lg">
+            页面将在 <span id="countdown" class="font-bold text-primary">5</span> 秒后自动跳转
+        </p>
+        
+        <!-- 添加手动跳转按钮 -->
+        <button id="manualRedirect" class="mt-4 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+            立即跳转
+        </button>
+        
+        <div class="text-secondary text-sm mt-8 pt-4 border-t border-gray-100">
+            白云万维网工作室承建
+        </div>
+    </div>
+
+    <script>
+        // 倒计时功能
+        let countdown = 5;
+        const countdownElement = document.getElementById('countdown');
+        const manualRedirectBtn = document.getElementById('manualRedirect');
+        let timer;
+        
+        // 初始化倒计时
+        function startCountdown() {
+            timer = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    redirectToHome();
+                }
+            }, 1000);
+        }
+        
+        // 跳转至首页
+        function redirectToHome() {
+            clearInterval(timer);
+            try {
+                // 尝试跳转
+                window.location.href = 'index.html';
+                
+                // 500ms后检查是否跳转成功
+                setTimeout(() => {
+                    if (window.location.pathname.indexOf('index.html') === -1) {
+                        // 如果跳转失败，显示错误信息
+                        document.querySelector('p').innerHTML = 
+                            '自动跳转失败，请 <a href="index.html" class="text-primary underline">点击此处</a> 手动跳转';
+                    }
+                }, 500);
+            } catch (error) {
+                console.error('跳转失败:', error);
+                document.querySelector('p').innerHTML = 
+                    '自动跳转失败，请 <a href="index.html" class="text-primary underline">点击此处</a> 手动跳转';
+            }
+        }
+        
+        // 绑定手动跳转事件
+        manualRedirectBtn.addEventListener('click', redirectToHome);
+        
+        // 启动倒计时
+        startCountdown();
+    </script>
+</body>
+</html>
+    
