@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web Setup | 白云工作室</title>
+  <link rel="stylesheet" href="main.css" />
+    <script src="../../zy/webside/st/tailwind.css"></script>
+    <link href="../../zy/webside/nd/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    const articles = [
+      "index.html",
+      "home.html",
+      "about.html",
+      "contact.html",
+      "join-us.html",
+      "virus-sample.html",
+      "web-setup.html",
+      "yo-agreement.html"
+    ];
+  </script>
+</head>
+<body>
+  <div class="watermark">白云万维网工作室承建</div>
+
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+        <a href="index.html"><img class="avatar" src="./logo.png" alt="logo" /></a>
+        <h1 class="site-title">白云工作室-已解散</h1>
+        <p class="site-description">所有内容不再更新，联系：15068768204</p>
+        <div class="menu-container">
+          <a href="index.html" class="menu">首页</a>
+          <a href="archives.html" class="menu">归档</a>
+          <a href="tags.html" class="menu">标签</a>
+        </div>
+      </div>
+
+      <div class="post-detail">
+        <h2 class="post-title">网站搭建</h2>
+        <div class="post-info">
+          <span>2025-06-23</span>
+          <span>1 min read</span>
+        </div>
+        <div class="post-content">
+          <p>250人民币买断服务器和域名。无需动手。永久有效。<br>
+             朋友只要200元。（够少了吧，还是永久的）</p>
+        </div>
+      </div>
+
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href=""><h3 class="post-title">下一篇</h3></a>
+      </div>
+      <div class="prev-post">
+        <div class="prev">上一篇</div>
+        <a href=""><h3 class="post-title">上一篇</h3></a>
+      </div>
+
+      <div class="site-footer">© 2025 白云万维网工作室</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const thisFile = location.pathname.split("/").pop();
+      const idx = articles.indexOf(thisFile);
+      if (idx === -1) return;
+      const prevIdx = (idx - 1 + articles.length) % articles.length;
+      const nextIdx = (idx + 1) % articles.length;
+      const prevA = document.querySelector('.prev-post a');
+      const nextA = document.querySelector('.next-post a');
+      if (prevA) prevA.href = articles[prevIdx];
+      if (nextA) nextA.href = articles[nextIdx];
+    })();
+  </script>
+</body>
+</html>

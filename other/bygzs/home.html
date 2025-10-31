@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home | 白云工作室</title>
+  <link rel="stylesheet" href="main.css" />
+    <script src="../../zy/webside/st/tailwind.css"></script>
+    <link href="../../zy/webside/nd/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    const articles = [
+      "index.html",
+      "home.html",
+      "about.html",
+      "contact.html",
+      "join-us.html",
+      "virus-sample.html",
+      "web-setup.html",
+      "yo-agreement.html"
+    ];
+  </script>
+</head>
+<body>
+  <div class="watermark">白云万维网工作室承建</div>
+
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+        <a href="index.html"><img class="avatar" src="./logo.png" alt="logo" /></a>
+        <h1 class="site-title">白云工作室-已解散</h1>
+        <p class="site-description">所有内容不再更新，联系：15068768204</p>
+        <div class="menu-container">
+          <a href="index.html" class="menu">首页</a>
+          <a href="archives.html" class="menu">归档</a>
+          <a href="tags.html" class="menu">标签</a>
+        </div>
+      </div>
+
+      <div class="post-list">
+        <article class="post">
+          <a href="contact.html"><h2 class="post-title">白云工作室-联系我们</h2></a>
+          <div class="post-info">
+            <span>2025-06-23</span>
+            <span>1 min read</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <a href="join-us.html"><h2 class="post-title">白云工作室-加入我们</h2></a>
+          <div class="post-info">
+            <span>2025-06-23</span>
+            <span>1 min read</span>
+          </div>
+        </article>
+
+        <article class="post">
+          <a href="about.html"><h2 class="post-title">白云工作室-简介</h2></a>
+          <div class="post-info">
+            <span>2025-06-23</span>
+            <span>1 min read</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="site-footer">© 2025 白云万维网工作室</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const thisFile = location.pathname.split("/").pop();
+      const idx = articles.indexOf(thisFile);
+      if (idx === -1) return;
+      const prevIdx = (idx - 1 + articles.length) % articles.length;
+      const nextIdx = (idx + 1) % articles.length;
+      const prevA = document.querySelector('.prev-post a');
+      const nextA = document.querySelector('.next-post a');
+      if (prevA) prevA.href = articles[prevIdx];
+      if (nextA) nextA.href = articles[nextIdx];
+    })();
+  </script>
+</body>
+</html>

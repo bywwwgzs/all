@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YO Agreement | 白云工作室</title>
+  <link rel="stylesheet" href="main.css" />
+    <script src="../../zy/webside/st/tailwind.css"></script>
+    <link href="../../zy/webside/nd/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    const articles = [
+      "index.html",
+      "home.html",
+      "about.html",
+      "contact.html",
+      "join-us.html",
+      "virus-sample.html",
+      "web-setup.html",
+      "yo-agreement.html"
+    ];
+  </script>
+</head>
+<body>
+  <div class="watermark">白云万维网工作室承建</div>
+
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+        <a href="index.html"><img class="avatar" src="./logo.png" alt="logo" /></a>
+        <h1 class="site-title">白云工作室-已解散</h1>
+        <p class="site-description">所有内容不再更新，联系：15068768204</p>
+        <div class="menu-container">
+          <a href="index.html" class="menu">首页</a>
+          <a href="archives.html" class="menu">归档</a>
+          <a href="tags.html" class="menu">标签</a>
+        </div>
+      </div>
+
+      <div class="post-detail">
+        <h2 class="post-title">YO工作室入编协议（补）</h2>
+        <div class="post-info">
+          <span>2025-06-24</span>
+          <span>1 min read</span>
+          <a href="home.html" class="post-tag"># YO工作室</a>
+          <a href="home.html" class="post-tag"># 白云工作室</a>
+        </div>
+        <div class="post-content">
+          <p>甲方代表：ltr 白云工作室<br>
+             乙方代表：pcx YO工作室</p>
+          <p>甲方同意乙方成为甲方的附属工作室<br>
+             乙方确定成为甲方的附属工作室</p>
+          <p>甲乙方均同意以下条款：<br>
+             1. 甲方有权查问关于乙方的任何事项<br>
+             2. 甲方有权代乙方进行宣传<br>
+             3. YO工作室一切解释权80%归乙方所有<br>
+             4. YO工作室官方咨询电话为199 4137 6643<br>
+             5. 一切因甲方失误导致的所有责任由甲方承担</p>
+          <p>甲方代表签字：ltr<br>
+             乙方代表签字：pcx<br>
+             日期：2024.4</p>
+        </div>
+      </div>
+
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href=""><h3 class="post-title">下一篇</h3></a>
+      </div>
+      <div class="prev-post">
+        <div class="prev">上一篇</div>
+        <a href=""><h3 class="post-title">上一篇</h3></a>
+      </div>
+
+      <div class="site-footer">© 2025 白云万维网工作室</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const thisFile = location.pathname.split("/").pop();
+      const idx = articles.indexOf(thisFile);
+      if (idx === -1) return;
+      const prevIdx = (idx - 1 + articles.length) % articles.length;
+      const nextIdx = (idx + 1) % articles.length;
+      const prevA = document.querySelector('.prev-post a');
+      const nextA = document.querySelector('.next-post a');
+      if (prevA) prevA.href = articles[prevIdx];
+      if (nextA) nextA.href = articles[nextIdx];
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Virus Sample | 白云工作室</title>
+  <link rel="stylesheet" href="main.css" />
+    <script src="../../zy/webside/st/tailwind.css"></script>
+    <link href="../../zy/webside/nd/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    const articles = [
+      "index.html",
+      "home.html",
+      "about.html",
+      "contact.html",
+      "join-us.html",
+      "virus-sample.html",
+      "web-setup.html",
+      "yo-agreement.html"
+    ];
+  </script>
+</head>
+<body>
+  <div class="watermark">白云万维网工作室承建</div>
+
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+        <a href="index.html"><img class="avatar" src="./logo.png" alt="logo" /></a>
+        <h1 class="site-title">白云工作室-已解散</h1>
+        <p class="site-description">所有内容不再更新，联系：15068768204</p>
+        <div class="menu-container">
+          <a href="index.html" class="menu">首页</a>
+          <a href="archives.html" class="menu">归档</a>
+          <a href="tags.html" class="menu">标签</a>
+        </div>
+      </div>
+
+      <div class="post-detail">
+        <h2 class="post-title">白云工作室-病毒样本下载</h2>
+        <div class="post-info">
+          <span>2025-06-23</span>
+          <span>1 min read</span>
+          <a href="home.html" class="post-tag"># 白云工作室</a>
+        </div>
+        <div class="post-content">
+          <p>病毒下载规定：</p>
+          <p>1. 严禁用于非法用途。<br>
+             2. 严禁传播。<br>
+             3. 严禁在实体机上执行。<br>
+             4. 请小心处理。<br>
+             5. 如果你无法遵守这些规定，那么你根本不能下载。<br>
+             6. 后果自负。<br>
+             7. 本人不负任何责任。</p>
+          <p>bat病毒：<a href="https://pan.baidu.com/s/1gCxPuqFGo6B1KEFjExgwTA?pwd=94pf" target="_blank">点击这里访问</a><br>
+             cmd病毒：<a href="https://pan.baidu.com/s/1s6u8rWRkgBYsnVn5hThu2Q?pwd=ds1d" target="_blank">点击这里访问</a><br>
+             极域病毒：<a href="https://pan.baidu.com/s/1EpFUwhBMijWUhRIbB9IZZw?pwd=6t39" target="_blank">点击这里访问</a><br>
+             vbs病毒：<a href="https://pan.baidu.com/s/1Z316CKFRAUXOii0MMVPdTA?pwd=gf8y" target="_blank">点击这里访问</a></p>
+        </div>
+      </div>
+
+      <div class="next-post">
+        <div class="next">下一篇</div>
+        <a href=""><h3 class="post-title">下一篇</h3></a>
+      </div>
+      <div class="prev-post">
+        <div class="prev">上一篇</div>
+        <a href=""><h3 class="post-title">上一篇</h3></a>
+      </div>
+
+      <div class="site-footer">© 2025 白云万维网工作室</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const thisFile = location.pathname.split("/").pop();
+      const idx = articles.indexOf(thisFile);
+      if (idx === -1) return;
+      const prevIdx = (idx - 1 + articles.length) % articles.length;
+      const nextIdx = (idx + 1) % articles.length;
+      const prevA = document.querySelector('.prev-post a');
+      const nextA = document.querySelector('.next-post a');
+      if (prevA) prevA.href = articles[prevIdx];
+      if (nextA) nextA.href = articles[nextIdx];
+    })();
+  </script>
+</body>
+</html>
