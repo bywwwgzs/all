@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>实时时钟 | 吕洞宾吖8204的网站</title>
+  <link href="../../zy/other/Remixlcon/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles/main.css" />
+  <link rel="stylesheet" href="../../zy/webside/nd/css/font-awesome.min.css" />
+</head>
+<body>
+  <div class="watermark">白云万维网工作室承建</div>
+
+  <div class="main">
+    <div class="main-content">
+      <div class="site-header">
+        <a href="index.html"><img class="avatar" src="./images/logo.png" alt="logo" /></a>
+        <h1 class="site-title">吕洞宾吖8204的网站</h1>
+        <p class="site-description"></p>
+        <div class="menu-container">
+          <a href="index.html" class="menu">首页</a>
+          <a href="archives.html" class="menu">归档</a>
+          <a href="tags.html" class="menu">标签</a>
+        </div>
+      </div>
+
+      <div class="post-detail">
+        <h2 class="post-title">实时时钟</h2>
+        <div class="post-info">
+          <span>2025-06-26</span>
+          <span>1 min read</span>
+        </div>
+        <div class="post-content">
+          <style>
+            body { text-align: center; margin-top: 60px; background: #f9f9fb;}
+            #clock {
+              font-size: 3em;
+              color: #2073c6;
+              letter-spacing: .11em;
+              padding: 28px 0;
+              font-family: Consolas, monospace;
+            }
+          </style>
+          <div id="clock"></div>
+          <script>
+            function showTime() {
+              var now = new Date();
+              var h = now.getHours();
+              var m = now.getMinutes();
+              var s = now.getSeconds();
+              m = m < 10 ? "0" + m : m;
+              s = s < 10 ? "0" + s : s;
+              document.getElementById('clock').innerText = h + ":" + m + ":" + s;
+            }
+            showTime();
+            setInterval(showTime, 1000);
+          </script>
+        </div>
+      </div>
+
+      <div class="site-footer">© 2025 白云万维网工作室</div>
+    </div>
+  </div>
+</body>
+</html>
